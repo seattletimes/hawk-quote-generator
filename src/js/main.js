@@ -15,15 +15,34 @@ var samples = {
   wilson: require("../../data/wilson.txt")
 };
 
+var lynch = require("../../data/lynch.txt").split("\n");
+
 var players = {};
 for (var key in samples) {
   players[key] = new Blather();
   players[key].addText(samples[key]);
 }
 
+var name = document.querySelector(".player-name");
 var outputDiv = document.querySelector(".output");
+var statusDiv = document.querySelector(".status");
+var timeout = null;
+var delay = 2000; // time to fake quote generation
 
-var generate = function() {
+var presentQuote = function(player, quote) {
+  name.innerHTML = "";
+  outputDiv.innerHTML = "";
+  statusDiv.innerHTML = "Thinking...";
+
+  if (timeout) clearTimeout(timeout);
+  timeout = setTimeout(function() {
+    statusDiv.innerHTML = "";
+    name.innerHTML = `${player} says:`;
+    outputDiv.innerHTML = quote;
+  }, delay);
+}
+
+var markov = function() {
   var name = this.getAttribute("data-player");
   var player = players[name];
   var length = Math.ceil(Math.random() * 2) + 1;
@@ -31,7 +50,12 @@ var generate = function() {
   for (var i = 0; i < length; i++) {
     output.push(player.sentence());
   }
-  outputDiv.innerHTML = output.join(" ");
+  presentQuote(this.innerHTML, output.join(" "));
 };
 
-qsa(".request-quote").forEach(el => el.addEventListener("click", generate));
+var randomized = function() {
+  presentQuote("Marshawn Lynch", lynch[Math.floor(Math.random() * lynch.length)]);
+};
+
+qsa(".blather").forEach(el => el.addEventListener("click", markov));
+document.querySelector(".lynch").addEventListener("click", randomized);
