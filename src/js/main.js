@@ -23,22 +23,28 @@ for (var key in samples) {
   players[key].addText(samples[key]);
 }
 
-var name = document.querySelector(".player-name");
-var outputDiv = document.querySelector(".output");
-var statusDiv = document.querySelector(".status");
+var container = document.querySelector("main.interactive");
+var nameElement = document.querySelector(".quoted");
+var outputElement = document.querySelector(".output");
 var timeout = null;
 var delay = 2000; // time to fake quote generation
 
 var presentQuote = function(player, quote) {
-  name.innerHTML = "";
-  outputDiv.innerHTML = "";
-  statusDiv.innerHTML = "Thinking...";
+  container.classList.add("thinking");
+  container.classList.remove("blank");
+  container.classList.remove("fade");
+  nameElement.innerHTML = "";
+  outputElement.innerHTML = "";
 
   if (timeout) clearTimeout(timeout);
   timeout = setTimeout(function() {
-    statusDiv.innerHTML = "";
-    name.innerHTML = `${player} says:`;
-    outputDiv.innerHTML = quote;
+    container.classList.remove("thinking");
+    container.classList.add("blank");
+    var _ = container.offsetWidth; //reflow
+    container.classList.add("fade");
+    nameElement.innerHTML = player;
+    outputElement.innerHTML = quote;
+    container.classList.remove("blank");
   }, delay);
 }
 
