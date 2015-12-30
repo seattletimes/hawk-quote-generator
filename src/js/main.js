@@ -27,7 +27,7 @@ var container = document.querySelector("main.interactive");
 var nameElement = document.querySelector(".quoted");
 var outputElement = document.querySelector(".output");
 var timeout = null;
-var delay = 2000; // time to fake quote generation
+var delay = 1000; // time to fake quote generation
 
 var presentQuote = function(player, quote) {
   container.classList.add("thinking");
