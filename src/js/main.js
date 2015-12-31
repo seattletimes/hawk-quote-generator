@@ -4,6 +4,7 @@
 
 require("component-responsive-frame/child");
 var Blather = require("blather");
+var shuffle = require("lodash.shuffle");
 
 var qsa = s => Array.prototype.slice.call(document.querySelectorAll(s));
 
@@ -19,8 +20,12 @@ var lynch = require("../../data/lynch.txt").split("\n");
 
 var players = {};
 for (var key in samples) {
-  players[key] = new Blather();
-  players[key].addText(samples[key]);
+  var p = players[key] = new Blather();
+  var sample = samples[key];
+  sample = sample.replace(/\s'/g, " ").replace(/\.' /g, ". ").replace(/,'\s/g, ", ");
+  sample = sample.replace(/(\.|\?|\!) /g, "$1|");
+  sample.split("|").forEach(s => p.addText(s));
+  // players[key].addText(sample);
 }
 
 var container = document.querySelector("main.interactive");
@@ -53,8 +58,11 @@ var markov = function() {
   var player = players[name];
   var length = Math.ceil(Math.random() * 2) + 1;
   var output = [];
-  for (var i = 0; i < length; i++) {
-    output.push(player.sentence());
+  //generate n 5-20 word sentences
+  while (output.length < length) {
+    var s = player.sentence();
+    var l = s.split(" ").length;
+    if (l >= 5 && l <= 20) output.push(s);
   }
   presentQuote(this.innerHTML, output.join(" "));
 };

@@ -23,6 +23,7 @@
     "grunt-contrib-connect": "^0.10.1",
     "grunt-contrib-watch": "^0.6.1",
     "less": "^2.0.0",
+    "lodash.shuffle": "^3.1.0",
     "mime": "^1.2.11",
     "shelljs": "^0.5.1",
     "through2": "^2.0.0",
