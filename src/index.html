@@ -13,12 +13,20 @@
       <main class="interactive blank thinking">
         <h2>Generate a quote from:</h2>
         <nav class="quote-buttons">
-          <button data-player="bennett" class="get-quote blather">Michael Bennett</button>
-          <button data-player="carroll" class="get-quote blather">Pete Carroll</button>
-          <button data-player="sherman" class="get-quote blather">Richard Sherman</button>
-          <button data-player="thomas" class="get-quote blather">Earl Thomas</button>
-          <button data-player="wilson" class="get-quote blather">Russell Wilson</button>
-          <button class="get-quote lynch">Marshawn Lynch</button>
+          <% 
+          "Michael Bennett|Pete Carroll|Richard Sherman|Earl Thomas|Russell Wilson".split("|").forEach(function(name) { 
+            var last = name.split(" ").pop().toLowerCase();
+            var mug = name.replace(/\s/g, "").toLowerCase();
+          %>
+          <a data-player="<%= last %>" class="get-quote blather">
+            <img class="mug" src="./assets/<%= mug %>_mug.jpg">
+            <label><%= name %></label>
+          </a>
+          <% }) %>
+          <a class="get-quote lynch">
+            <img class="mug" src="./assets/marshawnlynch_mug.jpg">
+            <label>Marshawn Lynch</label>
+          </a>
         </nav>
 
         <div class="quote">

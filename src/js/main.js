@@ -22,7 +22,7 @@ var players = {};
 for (var key in samples) {
   var p = players[key] = new Blather();
   var sample = samples[key];
-  sample = sample.replace(/\s'/g, " ").replace(/\.' /g, ". ").replace(/,'\s/g, ", ");
+  sample = sample.replace(/\s'/g, " ").replace(/(\.|\?|\!)' /g, "$1 ").replace(/,'\s/g, ", ");
   sample = sample.replace(/(\.|\?|\!) /g, "$1|");
   sample.split("|").forEach(s => p.addText(s));
   // players[key].addText(sample);
@@ -64,7 +64,7 @@ var markov = function() {
     var l = s.split(" ").length;
     if (l >= 5 && l <= 20) output.push(s);
   }
-  presentQuote(this.innerHTML, output.join(" "));
+  presentQuote(this.querySelector("label").innerHTML, output.join(" "));
 };
 
 var randomized = function() {

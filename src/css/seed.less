@@ -24,20 +24,28 @@ main.interactive {
   }
 
   .get-quote {
+    display: block;
     .flex(0 0 30%);
-    background: @sea-blue;
-    border: none;
-    color: white;
     font-size: 20px;
     font-family: @df-sans;
     font-weight: bold;
-    padding: 8px 0px;
     margin-bottom: 8px;
     cursor: pointer;
     transition: background .2s linear;
 
-    &:hover {
-      background: lighten(@sea-blue, 5%);
+    @media @mobile {
+      font-size: 14px;
+    }
+
+    .mug {
+      border-radius: 100%;
+      width: 100%;
+    }
+
+    label {
+      padding: 8px 0px;
+      display: block;
+      text-align: center;
     }
   }
 
