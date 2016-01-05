@@ -21,6 +21,7 @@ main.interactive {
     .display-flex();
     .flex-wrap(wrap);
     .justify-content(space-between);
+    padding-top: 20px;
   }
 
   .get-quote {
@@ -66,9 +67,9 @@ main.interactive {
 
   .quoted {
     color: @sea-blue;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    text-shadow: 4px 4px 12px rgba(0, 0, 0, .2);
+    padding-top: 20px;
 
     &::after {
       content: " says:";
@@ -77,15 +78,17 @@ main.interactive {
 
   .output {
     position: relative;
-    margin: 20px 40px;
+    margin: 10px 40px;
     display: block;
     text-align: center;
+    padding-top: 20px;
 
     &::before, &::after {
       position: absolute;
       color: @sea-gray;
-      font-size: 80px;
+      font-size: 90px;
       font-family: @df-sans;
+      padding-top: 20px;
     }
 
     &::before {
